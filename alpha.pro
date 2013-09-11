@@ -15,9 +15,11 @@ INCLUDEPATH += QCustomPlot
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-        QCustomPlot/qcustomplot.cpp
+        QCustomPlot/qcustomplot.cpp \
+    Alpha.cpp
 
 HEADERS  += mainwindow.h \
-        QCustomPlot/qcustomplot.h
+        QCustomPlot/qcustomplot.h \
+    Alpha.h
 
 FORMS    += mainwindow.ui

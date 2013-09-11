@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include "qcustomplot.h"
+#include "Alpha.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -10,11 +11,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
-    QVector<double> x(101), y(101);
+    // Test QCustomPlot widget
+    QVector<double> parabola_x(101), parabola_y(101);
     for (int i=0; i<101; ++i)
     {
-        x[i] = i/50.0 - 1;
-        y[i] = x[i]*x[i];
+        parabola_x[i] = i/50.0 - 1;
+        parabola_y[i] = parabola_x[i]*parabola_x[i];
     }
 
     ui->customPlot->addGraph();
@@ -22,12 +24,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->customPlot->yAxis->setLabel("y");
     QCPCurve *newCurve = new QCPCurve(ui->customPlot->xAxis, ui->customPlot->yAxis);
     newCurve->setName("Test");
-    newCurve->setData(x, y);
-    ui->customPlot->xAxis->setRange(x[0], x[100]);
-    ui->customPlot->yAxis->setRange(0, y[100]);
+    newCurve->setData(parabola_x, parabola_y);
+    ui->customPlot->xAxis->setRange(parabola_x[0], parabola_x[100]);
+    ui->customPlot->yAxis->setRange(0, parabola_y[100]);
     ui->customPlot->rescaleAxes(true);
     ui->customPlot->replot();
     ui->customPlot->removePlottable(ui->customPlot->plottable());
+
+    // Test Alpha class
+    Alpha * alpha = new Alpha();
+    QVector<double> result_x, result_y;
+    alpha->calculate(0., 0., result_x, result_y);
 
 }
 
