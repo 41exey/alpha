@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Test Alpha class
     Alpha * alpha = new Alpha();
     QVector<double> result_x, result_y;
-    alpha->calculate(0., 0., result_x, result_y);
+    alpha->calculate(-50., 0., 2, 5., 0, .5, .1 / .3, result_x, result_y);
 
 }
 

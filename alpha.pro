@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2013-09-07T18:32:02
+# Project created by QtCreator 2013-09-17T10:32:02
 #
 #-------------------------------------------------
 
@@ -10,6 +10,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = alpha
 TEMPLATE = app
+
+CXXFLAGS += -std=c++0x
 
 INCLUDEPATH += QCustomPlot
 
