@@ -23,6 +23,7 @@ void MainWindow::on_pushButtonCalculate_clicked()
         return;
 
     isClicked = true;
+/*
     // Test QCustomPlot widget
     QVector<double> parabola_x(101), parabola_y(101);
     for (int i=0; i<101; ++i) {
@@ -41,9 +42,23 @@ void MainWindow::on_pushButtonCalculate_clicked()
     ui->customPlot->rescaleAxes(true);
     ui->customPlot->replot();
     ui->customPlot->removePlottable(ui->customPlot->plottable());
+    */
 
     // Test Alpha class
     Alpha * alpha = new Alpha();
     QVector<double> result_x, result_y;
     alpha->calculate(-50., 0., 2, 5., 0, .5, .1 / .3, result_x, result_y);
+
+    ui->customPlot->addGraph();
+    ui->customPlot->xAxis->setLabel("x");
+    ui->customPlot->yAxis->setLabel("y");
+    QCPCurve *newCurve = new QCPCurve(ui->customPlot->xAxis, ui->customPlot->yAxis);
+    newCurve->setName("Test");
+    newCurve->setData(result_x, result_y);
+    ui->customPlot->xAxis->setRange(-60, 60);
+    ui->customPlot->yAxis->setRange(-60, 60);
+    ui->customPlot->rescaleAxes(true);
+    ui->customPlot->replot();
+    ui->customPlot->removePlottable(ui->customPlot->plottable());
+
 }
