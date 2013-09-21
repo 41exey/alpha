@@ -8,13 +8,24 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-
+    isClicked = false;
     ui->setupUi(this);
+}
 
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::on_pushButtonCalculate_clicked()
+{
+    if (isClicked)
+        return;
+
+    isClicked = true;
     // Test QCustomPlot widget
     QVector<double> parabola_x(101), parabola_y(101);
-    for (int i=0; i<101; ++i)
-    {
+    for (int i=0; i<101; ++i) {
         parabola_x[i] = i/50.0 - 1;
         parabola_y[i] = parabola_x[i]*parabola_x[i];
     }
@@ -35,10 +46,4 @@ MainWindow::MainWindow(QWidget *parent) :
     Alpha * alpha = new Alpha();
     QVector<double> result_x, result_y;
     alpha->calculate(-50., 0., 2, 5., 0, .5, .1 / .3, result_x, result_y);
-
-}
-
-MainWindow::~MainWindow()
-{
-    delete ui;
 }
