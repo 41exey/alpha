@@ -17,7 +17,7 @@ class Alpha : public QObject {
 public:
     Alpha();
     ~Alpha();
-    void calculate(double x, double y, short alpha, double v, double t1, double DeltaT, double dt, QVector<double>& result_x, QVector<double>& result_y);
+    void calculate(double x, double y, short alpha, double v, double t_end, double t1, double DeltaT, double dt, QVector<double>& result_x, QVector<double>& result_y);
 };
 
 #endif

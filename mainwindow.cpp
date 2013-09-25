@@ -44,11 +44,13 @@ void MainWindow::on_pushButtonCalculate_clicked()
     ui->customPlot->removePlottable(ui->customPlot->plottable());
     */
 
-    // Test Alpha class
+    // Alpha class
     Alpha * alpha = new Alpha();
     QVector<double> result_x, result_y;
-    alpha->calculate(-50., 0., 2, 5., 0, .5, .1 / .3, result_x, result_y);
+    // Calculate a alpha particle
+    alpha->calculate(-50., 0., 2, 5., 20., 0, .5, .1 / .3, result_x, result_y);
 
+    // Plot the result
     ui->customPlot->addGraph();
     ui->customPlot->xAxis->setLabel("x");
     ui->customPlot->yAxis->setLabel("y");
@@ -60,5 +62,11 @@ void MainWindow::on_pushButtonCalculate_clicked()
     ui->customPlot->rescaleAxes(true);
     ui->customPlot->replot();
     ui->customPlot->removePlottable(ui->customPlot->plottable());
+
+    // Test position coordonates
+    for(auto it_x = result_x.begin(), it_y = result_y.begin(); it_x != result_x.end(); ++it_x, ++it_y) {
+        qDebug("Position now: x == %.02f y == %.02f", *it_x, *it_y);
+    }
+
 
 }

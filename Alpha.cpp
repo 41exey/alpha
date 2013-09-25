@@ -30,18 +30,18 @@ void Alpha::euler(double* t0, double* x, double* y, double* v_x, double* v_y, do
     *v_y = *v_y + f(*x, *y) * (t - *t0) * (*y / (qSqrt(*x * *x + *y * *y)));
 }
 
-void Alpha::calculate(double x, double y, short alpha, double v, double t1, double DeltaT, double dt, QVector<double>& result_x, QVector<double>& result_y) {
+void Alpha::calculate(double x, double y, short alpha, double v, double t_end, double t1, double DeltaT, double dt, QVector<double>& result_x, QVector<double>& result_y) {
     double t2;
     double alpha_in_radian = alpha * 3.1415 / 180;
     double v_x = v * qCos(alpha_in_radian), v_y = v * qSin(alpha_in_radian);
     t2 = DeltaT;
 
-    qDebug("Start position: x == %.02f y == %.02f", x, y);
+    //qDebug("Start position: x == %.02f y == %.02f", x, y);
 
     result_x.push_back(x);
     result_y.push_back(y);
 
-    while (t2 < 20.) {
+    while (t2 < t_end) {
         Alpha::euler(&t1, &x, &y, &v_x, &v_y, t2, dt, [this](double x, double y) {
                 return Q * q_alpha / (4 * 3.1415 * e0 * m_alpha * (x * x + y * y));
         });
@@ -49,7 +49,7 @@ void Alpha::calculate(double x, double y, short alpha, double v, double t1, doub
         result_x.push_back(x);
         result_y.push_back(y);
 
-        qDebug("New position: x == %.02f y == %.02f", x, y);
+        //qDebug("New position: x == %.02f y == %.02f", x, y);
 
         t1 = t2; t2 = t2 + DeltaT;
     }
