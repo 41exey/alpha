@@ -48,7 +48,13 @@ void MainWindow::on_pushButtonCalculate_clicked()
     Alpha * alpha = new Alpha();
     QVector<double> result_x, result_y;
     // Calculate a alpha particle
-    alpha->calculate(-50., 0., 2, 5., 20., 0, .5, .1 / .3, result_x, result_y);
+    //alpha->calculate(-50., 0., 2, 5., 20., 0, .5, .1 / .3, result_x, result_y);
+    alpha->calculate(ui->doubleSpinBoxStartX->value(),
+                     ui->doubleSpinBoxStartY->value(),
+                     ui->doubleSpinBoxA->value(),
+                     ui->doubleSpinBoxV->value(),
+                     ui->doubleSpinBoxD->value(), 0, .5, .1 / .3, result_x, result_y);
+
 
     // Plot the result
     ui->customPlot->addGraph();
