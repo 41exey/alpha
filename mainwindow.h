@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "Alpha.h"
 
 namespace Ui {
 class MainWindow;
@@ -13,6 +14,8 @@ class MainWindow : public QMainWindow
     
 public:
     bool isClicked;
+    QVector<double> result_x, result_y;
+    Alpha alpha;
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     

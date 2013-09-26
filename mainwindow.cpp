@@ -2,14 +2,18 @@
 #include "ui_mainwindow.h"
 
 #include "qcustomplot.h"
-#include "Alpha.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     isClicked = false;
+
     ui->setupUi(this);
+
+    ui->customPlot->addGraph();
+    ui->customPlot->xAxis->setLabel("x");
+    ui->customPlot->yAxis->setLabel("y");
 }
 
 MainWindow::~MainWindow()
@@ -19,10 +23,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButtonCalculate_clicked()
 {
-    if (isClicked)
-        return;
+
+    ui->customPlot->removePlottable(ui->customPlot->plottable());
+
+    result_x.clear();
+    result_y.clear();
 
     isClicked = true;
+
 /*
     // Test QCustomPlot widget
     QVector<double> parabola_x(101), parabola_y(101);
@@ -45,29 +53,24 @@ void MainWindow::on_pushButtonCalculate_clicked()
     */
 
     // Alpha class
-    Alpha * alpha = new Alpha();
-    QVector<double> result_x, result_y;
+    //Alpha * alpha = new Alpha();
+
     // Calculate a alpha particle
     //alpha->calculate(-50., 0., 2, 5., 20., 0, .5, .1 / .3, result_x, result_y);
-    alpha->calculate(ui->doubleSpinBoxStartX->value(),
+    alpha.calculate(ui->doubleSpinBoxStartX->value(),
                      ui->doubleSpinBoxStartY->value(),
                      ui->doubleSpinBoxA->value(),
                      ui->doubleSpinBoxV->value(),
                      ui->doubleSpinBoxD->value(), 0, .5, .1 / .3, result_x, result_y);
 
-
     // Plot the result
-    ui->customPlot->addGraph();
-    ui->customPlot->xAxis->setLabel("x");
-    ui->customPlot->yAxis->setLabel("y");
     QCPCurve *newCurve = new QCPCurve(ui->customPlot->xAxis, ui->customPlot->yAxis);
+    ui->customPlot->addPlottable(newCurve);
     newCurve->setName("Test");
     newCurve->setData(result_x, result_y);
-    ui->customPlot->xAxis->setRange(-60, 60);
-    ui->customPlot->yAxis->setRange(-60, 60);
-    ui->customPlot->rescaleAxes(true);
+
+    ui->customPlot->rescaleAxes();
     ui->customPlot->replot();
-    ui->customPlot->removePlottable(ui->customPlot->plottable());
 
     // Test position coordonates
     for(auto it_x = result_x.begin(), it_y = result_y.begin(); it_x != result_x.end(); ++it_x, ++it_y) {
